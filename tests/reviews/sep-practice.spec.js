@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 
-test('SEP practice', async ({ page }) => {
+test('SEP practice @smoke', async ({ page }) => {
   // Test body
 
   await page.setExtraHTTPHeaders({

@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 
-test("The context fixture", async ({ context }) => {
+test("The context fixture @smoke", async ({ context }) => {
   // one instance of browser application
 
   let page1 = await context.newPage();
