@@ -1,0 +1,14 @@
+Week03
+
+Topics:
+    Playwright Review
+    Playwright fixtures (browser & context)
+
+    SEP User Stories
+
+
+Selenium:
+    findElements() ==> List of WebElements
+
+Playwright:
+    all() ==> Array of Locators
