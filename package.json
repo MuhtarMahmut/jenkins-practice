@@ -1,0 +1,23 @@
+{
+  "name": "jenkins-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "tests:headless": "npx playwright test",
+    "tests:headed": "npx playwright test --headed",
+    "test:specific:headless": "npx playwright test --grep fileName.spec.js",
+    "test:specific:headed": "npx playwright test --headed --grep fileName.spec.js",
+    "test:tag:headless": "npx playwright test --grep @tagName",
+    "test:tag:headed": "npx playwright test --headed --grep @tagName",
+    "test-smoke": "npx playwright test --grep @smoke",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.55.1",
+    "@types/node": "^24.5.2"
+  }
+}
