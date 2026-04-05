@@ -1,1 +1,47 @@
+name: Playwright Tests
+
+on:
+  schedule:
+    - cron: '0 13 * * *'  # Runs every day at 8:00 AM EST
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest # Virtual amchine (macos-latest, windows-latest, ubuntu-latest)
+
+    # setup the node js
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    #installs the dependencies
+    - name: Install dependencies
+      run: npm ci
+    
+    # installs the Playwright browsers (chromium, firefox, webkit) for testing. Note: Replace 'chromium' with the browser you want to test.
+    - name: Install Playwright Chromium
+      run: npx playwright install --with-deps chromium
+
+    # runs the tests in headless mode (without a GUI)
+    - name: Run Playwright tests
+      run: npm run tests:headless
+
+    # Upload test results and reports
+    - name: Upload Playwright test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-results
+        path: |
+          test-results/
+          playwright-report/
+        retention-days: 30
+
 
