@@ -16,7 +16,7 @@ test('Bypass authentication by encoding the credentials base64 format', async ({
 
     await page.setExtraHTTPHeaders({'Authorization': `Basic ${encodedCredential}`});
 
-    page.goto("https://the-internet-5chk.onrender.com/ basic_auth");
+    page.goto("https://the-internet-5chk.onrender.com/basic_auth");
 
     await page.waitForTimeout(3000);
 
