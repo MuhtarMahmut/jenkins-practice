@@ -37,6 +37,13 @@ jobs:
     - name: Install Playwright Chromium
       run: npx playwright install --with-deps chromium
 
+    # configures the environment variables for the tests
+    - name: configure environment variables
+      run: |
+        echo "PRACTICE_USERNAME=${{ secrets.PRACTICE_USERNAME }}" >> $GITHUB_ENV
+        echo "PRACTICE_PASSWORD=${{ secrets.PRACTICE_PASSWORD }}" >> $GITHUB_ENV
+       
+
     # runs the tests in headless mode (without a GUI)
     - name: Run Playwright tests
       run: npm run tests:headless
