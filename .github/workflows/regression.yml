@@ -20,6 +20,7 @@ jobs:
     timeout-minutes: 60  # Set a timeout for the job to prevent it from running indefinitely
     runs-on: ubuntu-latest # Uses linux virtual environment for the job (windows-latest or macos-latest can also be used)
 
+    # Set environment variables for the job, including secrets for authentication
     env:
       PRACTICE_USERNAME: ${{ secrets.PRACTICE_USERNAME }}
       PRACTICE_PASSWORD: ${{ secrets.PRACTICE_PASSWORD }}

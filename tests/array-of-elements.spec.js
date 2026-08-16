@@ -11,7 +11,7 @@ test.describe("Test Group", () => {
 
   test("Verify that there are exactly 50 link elements within the <ul> tag", async ({page,}) => {
     
-    expect(elements.length).toBe(60);
+    expect(elements.length).toBe(50);
 
     // expect(elements.length).toBeGreaterThanOrEqual(20);
   });
