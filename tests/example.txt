@@ -1,0 +1,1903 @@
+# TASK: BUILD A PRODUCTION-GRADE LOCAL PR REVIEW SKILL FOR THIS PLAYWRIGHT FRAMEWORK
+
+You are a Principal Software Development Engineer in Test (SDET),
+Senior TypeScript Engineer, Playwright Framework Architect, and
+experienced Code Review Engineer.
+
+Your task is to design, implement, document, and validate a
+comprehensive Claude Code skill named:
+
+/pr-review
+
+This skill must perform a rigorous, evidence-based LOCAL pull
+request review of the current Git branch in this repository.
+
+The review must be comparable to a thorough review performed
+by a highly experienced Senior SDET or QA Automation Architect.
+
+IMPORTANT:
+
+Do not simply generate a generic SKILL.md.
+
+You MUST first investigate the existing Playwright framework,
+understand its architecture, identify its established conventions,
+and then create a repository-specific PR review skill.
+
+The implementation must be production-ready, maintainable,
+accurate, reusable, and compatible with the existing framework.
+
+Do not modify existing application code or test implementations
+unless explicitly authorized.
+
+Do not introduce unnecessary dependencies.
+
+Do not assume this repository uses the same architecture,
+tools, services, or conventions as another Playwright project.
+
+============================================================
+PART 1 — OBJECTIVE
+============================================================
+
+Create a Claude Code skill that allows developers to execute:
+
+/pr-review
+
+The skill must automatically:
+
+1. Identify the current Git branch.
+2. Determine the correct base branch.
+3. Identify committed changes belonging to the PR.
+4. Collect changed files and commit information.
+5. Classify the scope and risk of the changes.
+6. Analyze the modified code in depth.
+7. Execute applicable automated static checks.
+8. Validate Playwright testing best practices.
+9. Validate TypeScript coding standards.
+10. Verify framework architecture compliance.
+11. Identify bugs, security risks, and reliability problems.
+12. Detect missing or weak assertions.
+13. Verify test data creation and cleanup.
+14. Evaluate maintainability and code quality.
+15. Detect potential flaky test patterns.
+16. Distinguish newly introduced defects from existing issues.
+17. Generate a detailed, structured review report.
+18. Provide an evidence-based review decision.
+19. Ask whether the developer wants to execute tests.
+20. Update the review based on test results.
+21. Ask whether the developer wants to save the report.
+22. Support subsequent reviews after fixes are committed.
+
+The skill must work locally.
+
+Creating or opening a remote pull request must NOT be required.
+
+Remote APIs may be used to resolve PR metadata when configured
+and available, but the review must remain functional offline
+using local Git information.
+
+============================================================
+PART 2 — FIRST INVESTIGATE THE EXISTING FRAMEWORK
+============================================================
+
+Before creating any files, thoroughly inspect the repository.
+
+Investigate:
+
+A. PROJECT STRUCTURE
+
+- Root directory structure
+- Test directories
+- Test file naming conventions
+- Page Object Model implementation
+- Fixtures
+- Helpers and utilities
+- Configuration files
+- Test data directories
+- Authentication mechanisms
+- Environment configuration
+- API testing utilities
+- Reporting infrastructure
+- CI/CD configuration
+- Existing documentation
+- Existing Claude Code instructions
+- Existing Claude skills
+- Existing review scripts
+- Existing linting and formatting rules
+
+B. PLAYWRIGHT CONFIGURATION
+
+Inspect:
+
+playwright.config.ts
+
+or the equivalent configuration file.
+
+Determine:
+
+- Playwright version
+- TypeScript configuration
+- Test directory
+- Test matching patterns
+- Configured projects
+- Browser configurations
+- Test retries
+- Worker configuration
+- Timeouts
+- Global setup and teardown
+- Storage state usage
+- Base URLs
+- Reporter configuration
+- Trace configuration
+- Screenshot configuration
+- Video configuration
+- Environment-specific settings
+
+C. PACKAGE CONFIGURATION
+
+Inspect package.json and the lockfile.
+
+Identify:
+
+- Existing scripts
+- Available lint commands
+- TypeScript checking commands
+- Formatting commands
+- Test execution commands
+- Existing validation utilities
+- Installed dependencies
+- Existing CI verification commands
+
+D. FRAMEWORK ARCHITECTURE
+
+Determine how the framework handles:
+
+- Browser and page lifecycle
+- Authentication
+- Fixtures
+- Page objects
+- API clients
+- Test data
+- Environment variables
+- Test isolation
+- Cleanup
+- Assertions
+- Parallel execution
+- Test retries
+- Reporting
+- External service integrations
+
+E. EXTERNAL INTEGRATIONS
+
+Identify whether the repository integrates with:
+
+- Jira
+- Xray
+- TestRail
+- Zephyr
+- GitHub
+- GitLab
+- Bitbucket
+- AWS
+- Azure
+- CircleCI
+- GitHub Actions
+- Jenkins
+- Docker
+- Databases
+- Internal APIs
+
+Only implement integration-specific review checks when
+the corresponding integration actually exists.
+
+Do not copy unrelated integrations from other repositories.
+
+F. EXISTING PROJECT CONVENTIONS
+
+Read relevant documentation and representative implementations.
+
+Identify established patterns for:
+
+- Test naming
+- File naming
+- Locator strategy
+- Assertions
+- Test steps
+- Page object design
+- Fixture usage
+- Test data creation
+- Cleanup
+- Error handling
+- Logging
+- Environment configuration
+
+IMPORTANT:
+
+Do not invent conventions that conflict with the existing
+framework.
+
+If a convention is undocumented, infer it carefully from
+multiple representative examples.
+
+Distinguish mandatory conventions from stylistic preferences.
+
+============================================================
+PART 3 — ARCHITECTURE DISCOVERY REPORT
+============================================================
+
+Before implementing the skill, display a concise summary
+of what you discovered.
+
+Include:
+
+1. Framework architecture
+2. Playwright configuration
+3. TypeScript configuration
+4. Test organization
+5. Existing coding conventions
+6. Available verification commands
+7. CI/CD infrastructure
+8. External integrations
+9. Security-sensitive files
+10. Recommended PR review checks
+
+Explain which checks are:
+
+- Applicable
+- Not applicable
+- Conditional
+- Unavailable
+
+Then proceed with implementation.
+
+Do not stop for confirmation unless an essential design
+decision cannot be resolved from the repository.
+
+============================================================
+PART 4 — REQUIRED SKILL STRUCTURE
+============================================================
+
+Create the following structure:
+
+.claude/
+└── skills/
+    └── pr-review/
+        └── SKILL.md
+
+prompts/
+└── pr-review-execute.md
+
+If deterministic verification scripts are necessary,
+create them in an appropriate repository location.
+
+Prefer:
+
+scripts/pr-review/
+
+or an existing equivalent scripts directory.
+
+Do not create scripts unnecessarily.
+
+If existing scripts already perform the required checks,
+reuse them.
+
+Do not duplicate existing tooling.
+
+The SKILL.md file must be the orchestration layer.
+
+The pr-review-execute.md file must contain the detailed
+review checklist, severity rules, verification requirements,
+report format, and decision matrix.
+
+Use progressive disclosure.
+
+Keep SKILL.md focused on the execution workflow.
+
+Place lengthy reference material in supporting files.
+
+All referenced files must actually exist.
+
+Use paths that resolve correctly from the repository root.
+
+============================================================
+PART 5 — SKILL FRONTMATTER
+============================================================
+
+The SKILL.md must begin with valid YAML frontmatter.
+
+Use:
+
+---
+name: pr-review
+description: Perform a comprehensive local pull request code review of the current Git branch in this Playwright TypeScript automation framework. Analyze committed changes, validate framework conventions, detect defects and security risks, evaluate test quality and coverage, execute applicable static checks, and generate an evidence-based review report. Use when the developer requests a PR review, code review, branch review, or invokes /pr-review.
+---
+
+Ensure Claude Code recognizes the skill.
+
+Verify that the skill can be invoked using:
+
+/pr-review
+
+If the installed Claude Code version requires additional
+configuration, implement the supported configuration.
+
+Do not rely on deprecated skill registration mechanisms.
+
+============================================================
+PART 6 — HIGH-LEVEL REVIEW WORKFLOW
+============================================================
+
+Implement the following workflow:
+
+PHASE 0: Determine the correct base branch
+
+PHASE 1: Validate the review scope
+
+PHASE 2: Gather Git and commit context
+
+PHASE 3: Classify changed files and risk
+
+PHASE 4: Execute applicable automated checks
+
+PHASE 5: Perform deep code analysis
+
+PHASE 6: Evaluate test coverage and assertions
+
+PHASE 7: Generate the review report
+
+PHASE 8: Ask whether to execute tests
+
+PHASE 9: Update the review based on execution results
+
+PHASE 10: Ask whether to save the review
+
+PHASE 11: Display the final review decision
+
+Each phase must have clear instructions.
+
+Do not silently skip required phases.
+
+If a check cannot execute, report it as UNVERIFIED.
+
+If a check is irrelevant, report it as NOT APPLICABLE.
+
+============================================================
+PART 7 — GIT BASE BRANCH RESOLUTION
+============================================================
+
+Correctly determining the base branch is CRITICAL.
+
+Do not blindly compare against:
+
+main
+
+master
+
+develop
+
+or the highest-version release branch.
+
+Determine the actual PR destination.
+
+Use the following priority:
+
+1. Explicit base branch supplied by the developer.
+
+2. Destination branch from the current PR metadata,
+   when a supported Git provider is configured.
+
+3. Repository-specific documented branching conventions.
+
+4. Remote default branch, when appropriate and verified.
+
+5. Other evidence from local Git history.
+
+If the base cannot be determined confidently, ask the
+developer to select the correct branch.
+
+Never silently choose an uncertain base.
+
+Support repositories using:
+
+- main
+- master
+- develop
+- release/*
+- feature/*
+- hotfix/*
+- other custom branching strategies
+
+Verify that the selected Git reference exists.
+
+Determine the merge base when appropriate.
+
+Use the three-dot comparison for PR changes:
+
+git diff BASE...HEAD
+
+Avoid including unrelated commits from other branches.
+
+Validate the comparison using:
+
+git merge-base BASE HEAD
+
+git rev-list --count BASE..HEAD
+
+git diff --stat BASE...HEAD
+
+git diff --name-only BASE...HEAD
+
+Use repository-appropriate references.
+
+Do not assume a remote branch exists locally.
+
+Do not automatically fetch remote branches without
+considering network availability and user permissions.
+
+If a remote fetch is needed, explain why.
+
+If local Git references are broken, report the problem.
+
+Do not claim a review is complete when the comparison
+cannot be established reliably.
+
+============================================================
+PART 8 — REVIEW SCOPE
+============================================================
+
+The default /pr-review must review committed changes
+on the current branch against the resolved base.
+
+Also support explicit review modes:
+
+/pr-review
+
+Review committed branch changes.
+
+/pr-review --working-tree
+
+Review staged and unstaged changes.
+
+/pr-review --base develop
+
+Review committed changes against develop.
+
+/pr-review --base release/v1.0.0
+
+Review against a specified release branch.
+
+These options must be documented.
+
+If Claude Code does not automatically parse arguments,
+implement instructions using the supported skill argument
+mechanism.
+
+For working-tree reviews:
+
+- Include staged changes.
+- Include unstaged tracked-file changes.
+- Identify untracked files separately.
+- Do not silently omit relevant untracked files.
+- Do not double-count changes.
+- Clearly identify the comparison scope.
+
+Never silently combine committed and uncommitted changes.
+
+If no relevant changes exist, display:
+
+"No changes found in the selected review scope."
+
+Then stop.
+
+============================================================
+PART 9 — COMMIT AND CHANGE ANALYSIS
+============================================================
+
+Gather:
+
+- Current branch
+- Base branch
+- Merge base
+- Commit count
+- Commit messages
+- Changed files
+- Added files
+- Modified files
+- Deleted files
+- Renamed files
+- Diff statistics
+
+Extract ticket identifiers from branch names or
+commit messages when available.
+
+Do not assume Jira is configured.
+
+Classify changed files into:
+
+1. Playwright test specifications
+2. Page objects
+3. Fixtures
+4. Helpers and utilities
+5. API clients
+6. Authentication
+7. Test data
+8. Configuration
+9. CI/CD
+10. Dependencies
+11. Documentation
+12. Application/tooling code
+13. Other
+
+Determine whether the PR is:
+
+- Test-only
+- Framework-only
+- Configuration-only
+- Infrastructure-related
+- Mixed changes
+
+Assign an overall risk level:
+
+LOW
+MEDIUM
+HIGH
+CRITICAL
+
+Base risk on the actual changes.
+
+Do not automatically label every PR as high risk.
+
+============================================================
+PART 10 — AUTOMATED VERIFICATION CHECKS
+============================================================
+
+Create a comprehensive verification checklist.
+
+Use four severity levels:
+
+CRITICAL
+IMPORTANT
+MINOR
+INFORMATIONAL
+
+Each check must also have a status:
+
+PASS
+FAIL
+NOT APPLICABLE
+UNVERIFIED
+
+A check must only receive PASS when it was actually
+performed successfully.
+
+Do not report skipped checks as passing.
+
+Execute available verification commands independently.
+
+Capture:
+
+- Command
+- Exit code
+- Relevant output
+- Result
+- Failure explanation
+
+Avoid hiding failures using commands such as:
+
+|| true
+
+unless the command is explicitly intended to collect
+nonblocking diagnostic information.
+
+Distinguish between:
+
+- A search finding no matches
+- A command failing
+- A command not being available
+
+Do not assume all grep matches represent defects.
+
+Inspect the actual code before reporting violations.
+
+============================================================
+PART 11 — TYPESCRIPT CODE QUALITY
+============================================================
+
+Review changed TypeScript files for:
+
+1. Type safety
+2. Unnecessary any types
+3. Unsafe type assertions
+4. Incorrect null handling
+5. Unhandled promises
+6. Missing await
+7. Incorrect async/await usage
+8. Unhandled asynchronous failures
+9. Unused variables
+10. Unused imports
+11. Dead code
+12. Duplicate logic
+13. Excessive complexity
+14. Poor function responsibilities
+15. Incorrect error handling
+16. Unsafe object access
+17. Incorrect return types
+18. Mutable shared state
+19. Unnecessary abstractions
+20. Maintainability problems
+
+Follow the repository's existing TypeScript standards.
+
+Do not flag valid code simply because another style
+could also work.
+
+When available, execute the repository's TypeScript
+validation command.
+
+For example:
+
+npx tsc --noEmit
+
+However, inspect tsconfig.json and package.json first.
+
+Do not assume this command is supported without verification.
+
+============================================================
+PART 12 — PLAYWRIGHT BEST PRACTICES
+============================================================
+
+Perform detailed Playwright-specific analysis.
+
+A. LOCATOR QUALITY
+
+Prefer stable locators when appropriate:
+
+getByRole()
+getByLabel()
+getByPlaceholder()
+getByTestId()
+getByText()
+
+Review CSS and XPath selectors for brittleness.
+
+Flag:
+
+- Unnecessarily fragile selectors
+- Dynamic IDs used without justification
+- Excessive DOM traversal
+- Positional selectors that depend on unstable ordering
+- Selectors likely to match multiple elements unexpectedly
+
+Do not automatically reject CSS or XPath.
+
+They are acceptable when stable and appropriate.
+
+B. WAITING STRATEGY
+
+Identify unnecessary:
+
+waitForTimeout()
+
+Flag hardcoded sleeps when they introduce avoidable
+flakiness or unnecessary execution time.
+
+Prefer condition-based waiting and Playwright's
+built-in auto-waiting.
+
+Do not suggest explicit waits when Playwright already
+handles the condition reliably.
+
+C. ASSERTIONS
+
+Verify meaningful use of:
+
+expect()
+
+toHaveText()
+toContainText()
+toBeVisible()
+toBeHidden()
+toHaveURL()
+toHaveValue()
+toHaveCount()
+toBeEnabled()
+
+and other appropriate assertions.
+
+Flag tests that perform actions without verifying
+the intended behavior.
+
+Distinguish assertions of intermediate UI state
+from assertions proving the business requirement.
+
+D. TEST ISOLATION
+
+Verify tests do not unintentionally depend on:
+
+- Previous test execution
+- Test ordering
+- Shared mutable state
+- Another worker's data
+- Existing application records
+- Leftover authentication state
+
+E. PARALLEL EXECUTION
+
+Check for:
+
+- Shared accounts
+- Shared test data
+- File collisions
+- Global mutable variables
+- Unsafe singleton state
+- Worker conflicts
+- Cleanup conflicts
+
+F. PAGE OBJECT MODEL
+
+Review:
+
+- Separation of test logic and page interactions
+- Reusable locators
+- Appropriate method responsibilities
+- Encapsulation
+- Unnecessary duplication
+- Overly complex page objects
+- Incorrect fixture integration
+
+Respect the existing framework architecture.
+
+G. FIXTURES
+
+Verify:
+
+- Correct fixture scopes
+- Proper dependency handling
+- Cleanup behavior
+- Resource lifecycle
+- Test isolation
+- Error handling
+
+H. RETRIES
+
+Identify tests that rely on retries to conceal
+deterministic failures.
+
+Do not classify retry configuration alone as a defect.
+
+I. TIMEOUTS
+
+Identify:
+
+- Unnecessary long timeouts
+- Hardcoded delays
+- Timeout configuration inconsistencies
+- Potential infinite waits
+- Operations without appropriate timeout handling
+
+J. TEST STEPS
+
+Review test.step() usage where applicable.
+
+Ensure test steps provide meaningful reporting.
+
+Do not require test.step() unless the repository's
+conventions require it.
+
+============================================================
+PART 13 — TEST DATA AND CLEANUP
+============================================================
+
+Investigate how the framework creates test data.
+
+Identify existing generators, factories, fixtures,
+and helper utilities.
+
+Verify that newly created entities use the framework's
+approved test data strategy.
+
+Check for:
+
+- Hardcoded entity names
+- Duplicate test data
+- Shared test records
+- Nonunique identifiers
+- Collisions during parallel execution
+- Test data dependencies
+- Cleanup omissions
+- Cleanup that runs only after successful tests
+- Cleanup that can hide the original failure
+
+Where appropriate, prefer cleanup using:
+
+afterEach()
+
+afterAll()
+
+or fixture teardown.
+
+However, determine the correct lifecycle based on
+where the resources are created.
+
+A resource created in beforeAll() may require
+afterAll() cleanup.
+
+A resource created per test generally requires
+per-test cleanup.
+
+Do not enforce a single cleanup hook universally.
+
+Verify that cleanup remains reliable after test failures.
+
+If the framework uses specific random naming generators,
+validate their usage.
+
+Do not invent random generator requirements.
+
+============================================================
+PART 14 — SECURITY REVIEW
+============================================================
+
+Perform security analysis on changed code.
+
+Check for:
+
+1. Hardcoded credentials
+2. API keys
+3. Access tokens
+4. Passwords
+5. Private keys
+6. Sensitive environment variables
+7. Accidental secret logging
+8. Unsafe shell execution
+9. Command injection
+10. Unsafe file operations
+11. Insecure authentication handling
+12. Sensitive session data exposure
+13. Unsafe HTTP requests
+14. Missing input validation
+15. Dangerous dependency changes
+16. Unsafe local server endpoints
+17. Unnecessary permission escalation
+18. Sensitive test artifacts
+
+Review shell execution involving:
+
+exec()
+execSync()
+spawn()
+execFile()
+
+Distinguish safe argument-array execution from
+unsafe shell interpolation.
+
+Do not automatically classify every shell execution
+as vulnerable.
+
+Determine whether untrusted input can actually
+reach the command.
+
+Inspect changed environment configuration.
+
+Never print actual secret values in review reports.
+
+Redact sensitive data.
+
+Never upload secrets or repository contents to
+external services as part of the review.
+
+============================================================
+PART 15 — CONFIGURATION AND INFRASTRUCTURE
+============================================================
+
+Identify security-sensitive or framework-wide files.
+
+Examples include:
+
+playwright.config.ts
+tsconfig.json
+package.json
+package-lock.json
+global-setup.ts
+global-teardown.ts
+CI/CD configuration
+Docker configuration
+authentication fixtures
+environment configuration
+shared test utilities
+
+Adapt this list to the actual repository.
+
+If these files change, perform enhanced review.
+
+Check for:
+
+- Incorrect configuration
+- Breaking framework changes
+- Authentication regressions
+- Environment-specific failures
+- Dependency compatibility
+- CI/CD regressions
+- Secret exposure
+- Changes affecting all tests
+- Worker and retry behavior
+- Reporter configuration problems
+
+Determine whether the repository has CODEOWNERS
+or another mandatory approval mechanism.
+
+If protected files require approval, clearly identify
+the required reviewers or approval process.
+
+Never invent CODEOWNERS requirements.
+
+Never claim that local review replaces mandatory
+human approval.
+
+============================================================
+PART 16 — API TEST AUTOMATION
+============================================================
+
+If the framework contains API tests or API utilities,
+review them for:
+
+- Correct HTTP methods
+- Request payload validation
+- Response status assertions
+- Response body assertions
+- Authentication handling
+- Token management
+- Error response coverage
+- Negative testing
+- Request context lifecycle
+- Resource cleanup
+- API test isolation
+- Incorrect assumptions about response order
+- Missing validation of business requirements
+
+Check that tests validate meaningful API behavior.
+
+A successful HTTP status alone may not prove
+the intended functionality.
+
+Do not apply API-specific checks to unrelated changes.
+
+============================================================
+PART 17 — TEST MANAGEMENT ALIGNMENT
+============================================================
+
+Determine whether the repository integrates with
+a test management system.
+
+Possible systems:
+
+- Xray
+- TestRail
+- Zephyr
+- Other systems
+
+If an integration exists, investigate its actual
+implementation and conventions.
+
+Where applicable, validate:
+
+A. TEST CASE MAPPING
+
+Does each automated test map correctly to its
+corresponding test case?
+
+B. TEST DATA ITERATIONS
+
+Are required datasets represented correctly?
+
+Are test parameters actually consumed?
+
+C. PRECONDITIONS
+
+Does test setup satisfy the documented prerequisites?
+
+D. TEST STEPS
+
+Does automation execute the required actions?
+
+E. EXPECTED RESULTS
+
+Are expected results explicitly asserted?
+
+F. CLEANUP
+
+Are created entities removed correctly?
+
+G. REPORTING
+
+Can test results be associated with the intended
+test management records?
+
+IMPORTANT:
+
+Keyword matching is not sufficient to prove coverage.
+
+Review the actual meaning of test steps and assertions.
+
+If external test management data is unavailable,
+mark external alignment checks UNVERIFIED.
+
+Continue reviewing local code.
+
+Do not invent missing external requirements.
+
+============================================================
+PART 18 — AUTOMATED STATIC CHECKS
+============================================================
+
+Identify existing validation scripts.
+
+Prefer repository-provided commands.
+
+Potential checks include:
+
+- TypeScript compilation
+- ESLint
+- Prettier
+- Playwright test discovery
+- Existing framework validation
+- Dependency consistency
+- Security-related checks
+- Test naming verification
+- Test data conventions
+- Cleanup conventions
+
+Example commands:
+
+npx tsc --noEmit
+
+npx playwright test --list
+
+npx eslint .
+
+Only run commands that are compatible with the
+repository's configuration.
+
+Prefer targeted validation when possible.
+
+Do not run the complete test suite automatically
+during the initial static review.
+
+If a command requires credentials, external services,
+or unavailable infrastructure, explain the limitation.
+
+Never treat unavailable checks as passing.
+
+============================================================
+PART 19 — DEEP CODE REVIEW
+============================================================
+
+For every changed source file:
+
+1. Read the complete relevant implementation.
+2. Read the corresponding Git diff.
+3. Understand the purpose of the changes.
+4. Inspect directly related code and dependencies.
+5. Identify newly introduced defects.
+6. Evaluate correctness.
+7. Evaluate maintainability.
+8. Evaluate reliability.
+9. Evaluate test coverage.
+10. Evaluate framework convention compliance.
+
+Do not review only added lines in isolation.
+
+Understand the surrounding implementation.
+
+Look for:
+
+- Incorrect business logic
+- Missing error handling
+- Race conditions
+- Async issues
+- Resource leaks
+- Incorrect selectors
+- Missing assertions
+- Incorrect cleanup
+- Test isolation problems
+- Flaky test patterns
+- Unnecessary duplication
+- Security risks
+- Incorrect fixture usage
+- Breaking changes
+
+IMPORTANT:
+
+Only report findings supported by actual evidence.
+
+Do not fabricate file paths or line numbers.
+
+Do not invent defects to make the review appear thorough.
+
+Do not report existing technical debt as a newly
+introduced PR defect unless the change worsens it.
+
+============================================================
+PART 20 — TEST COVERAGE EVALUATION
+============================================================
+
+For changed test specifications, determine:
+
+1. What functionality is being tested?
+2. What requirement does the test represent?
+3. What actions does the test perform?
+4. What expected behavior should be verified?
+5. What assertions are present?
+6. Are those assertions meaningful?
+7. Are important negative scenarios missing?
+8. Are boundary conditions relevant?
+9. Does the test depend on another test?
+10. Is cleanup implemented correctly?
+
+Where requirements or test management cases are
+available, compare against them.
+
+Do not assume full requirement coverage based only
+on test names.
+
+Do not require irrelevant negative or boundary tests.
+
+Prioritize coverage gaps directly related to the PR.
+
+============================================================
+PART 21 — REVIEW SEVERITY CLASSIFICATION
+============================================================
+
+Use the following severity levels.
+
+CRITICAL:
+
+- Confirmed security vulnerabilities
+- Exposed credentials
+- Serious authentication defects
+- Data loss risks
+- Dangerous framework-wide regressions
+- Confirmed severe test isolation failures
+- Other defects with critical impact
+
+IMPORTANT:
+
+- Incorrect test assertions
+- Missing verification of core functionality
+- Significant flaky test patterns
+- Incorrect cleanup
+- Unsafe parallel execution
+- Significant maintainability problems
+- Breaking API changes
+- Incorrect fixture lifecycle
+- Important coverage gaps
+
+MINOR:
+
+- Small maintainability improvements
+- Minor duplication
+- Noncritical readability problems
+- Low-impact convention violations
+
+INFORMATIONAL:
+
+- Suggestions
+- Optional improvements
+- Positive observations
+- Nonblocking recommendations
+
+Classify severity based on actual impact.
+
+Do not inflate severity.
+
+Do not automatically treat every failed test as
+a critical defect.
+
+Determine whether the failure was introduced by
+the PR and whether it is reproducible.
+
+============================================================
+PART 22 — REVIEW DECISION MATRIX
+============================================================
+
+Use the following review decisions:
+
+APPROVED
+
+CHANGES REQUESTED
+
+REJECTED
+
+INSUFFICIENT EVIDENCE
+
+Decision rules:
+
+REJECTED:
+
+One or more confirmed CRITICAL findings exist.
+
+CHANGES REQUESTED:
+
+No critical findings exist, but one or more
+IMPORTANT blocking findings remain.
+
+APPROVED:
+
+No confirmed blocking findings remain.
+
+All mandatory applicable checks have passed.
+
+Any remaining issues are minor or informational.
+
+INSUFFICIENT EVIDENCE:
+
+A mandatory check could not be completed and
+the missing evidence prevents a reliable approval.
+
+Additional rules:
+
+- Passing tests do not automatically override code defects.
+- Unverified checks must never be represented as passing.
+- Not applicable checks must not count as successful checks.
+- Protected files may require mandatory human approval.
+- Existing technical debt must be distinguished from PR defects.
+- External service failures must be reported separately.
+- The review must never claim that tests ran when they did not.
+
+If tests were not executed, explicitly state:
+
+"Test execution was not performed."
+
+If the review is otherwise complete, explain that
+the approval is based on static review only.
+
+============================================================
+PART 23 — REQUIRED REVIEW REPORT FORMAT
+============================================================
+
+Generate a professional Markdown review report.
+
+The report must follow this structure:
+
+# LOCAL PULL REQUEST REVIEW
+
+## 1. PR SUMMARY
+
+Include:
+
+- Current branch
+- Base branch
+- Commit count
+- Ticket ID, if available
+- Changed files
+- Added files
+- Deleted files
+- Lines added
+- Lines removed
+- Change classification
+- Risk level
+- Review scope
+
+## 2. EXECUTIVE SUMMARY
+
+Briefly explain:
+
+- Purpose of changes
+- Overall quality
+- Major risks
+- Most important findings
+- Initial recommendation
+
+## 3. AUTOMATED VERIFICATION RESULTS
+
+Create a table:
+
+| Check | Status | Severity | Evidence |
+|-------|--------|----------|----------|
+
+Use:
+
+PASS
+FAIL
+N/A
+UNVERIFIED
+
+## 4. PLAYWRIGHT QUALITY ASSESSMENT
+
+Evaluate:
+
+- Locator quality
+- Assertions
+- Waiting strategy
+- Test isolation
+- Fixtures
+- Page objects
+- Cleanup
+- Parallel execution
+- Retry behavior
+- Test reliability
+
+## 5. TYPESCRIPT CODE QUALITY
+
+Evaluate:
+
+- Type safety
+- Async handling
+- Error handling
+- Maintainability
+- Duplication
+- Architecture compliance
+
+## 6. SECURITY ASSESSMENT
+
+Report relevant security findings.
+
+Never reveal actual secrets.
+
+## 7. TEST COVERAGE ASSESSMENT
+
+Describe:
+
+- Covered functionality
+- Missing assertions
+- Missing scenarios
+- Requirement alignment
+- Test management alignment, if applicable
+
+## 8. DETAILED FINDINGS
+
+For each finding, use:
+
+Finding ID:
+Severity:
+Status:
+File:
+Line:
+Category:
+
+Problem:
+Explain the issue clearly.
+
+Evidence:
+Show the relevant code or behavior.
+
+Impact:
+Explain why the issue matters.
+
+Recommended Fix:
+Provide a specific, actionable correction.
+
+Confidence:
+HIGH / MEDIUM / LOW
+
+Only include findings supported by evidence.
+
+For findings outside changed lines, explain how
+the PR introduced or exposed the problem.
+
+## 9. POSITIVE OBSERVATIONS
+
+Highlight well-implemented changes.
+
+Do not add generic praise.
+
+## 10. TEST EXECUTION RESULTS
+
+Include:
+
+- Whether tests ran
+- Command executed
+- Total tests
+- Passed
+- Failed
+- Skipped
+- Timed out
+- Execution duration
+
+Do not invent test statistics.
+
+## 11. RECOMMENDED IMPROVEMENTS
+
+Prioritize actionable improvements.
+
+Separate blocking issues from optional suggestions.
+
+## 12. FINAL REVIEW DECISION
+
+Display:
+
+APPROVED
+
+or
+
+CHANGES REQUESTED
+
+or
+
+REJECTED
+
+or
+
+INSUFFICIENT EVIDENCE
+
+Explain the decision.
+
+Include:
+
+- Critical findings count
+- Important findings count
+- Minor findings count
+- Unverified mandatory checks
+- Test execution status
+- Required next actions
+
+============================================================
+PART 24 — INTERACTIVE TEST EXECUTION
+============================================================
+
+After displaying the initial review, ask:
+
+"Would you like to run tests to verify the changes?"
+
+Provide these options:
+
+1. Yes — Run changed test files.
+
+2. Yes — Run the complete test suite.
+
+3. No — Skip test execution.
+
+Do not run the full suite without permission.
+
+For changed test files:
+
+Identify the affected specifications.
+
+Use the framework's existing test execution conventions.
+
+For example:
+
+npx playwright test path/to/test.spec.ts --reporter=list
+
+Do not assume all test files use .spec.ts.
+
+Do not assume the repository has only one Playwright project.
+
+If no test files changed, explain that targeted execution
+may require selecting related tests.
+
+For the full suite:
+
+Use the repository's configured test command.
+
+Capture:
+
+- Total tests
+- Passed
+- Failed
+- Skipped
+- Timed out
+- Duration
+- Relevant failure details
+
+If tests require unavailable credentials or services,
+report the limitation.
+
+Do not fabricate results.
+
+============================================================
+PART 25 — UPDATE REVIEW AFTER TEST EXECUTION
+============================================================
+
+After tests finish:
+
+1. Record actual execution results.
+2. Analyze failures.
+3. Determine whether failures are related to the PR.
+4. Update verification statuses.
+5. Update relevant findings.
+6. Recalculate the review decision.
+7. Display the updated assessment.
+
+Rules:
+
+Passing tests must not erase legitimate code review issues.
+
+Failing tests must be investigated before assigning severity.
+
+Environment failures must be distinguished from code defects.
+
+Flaky failures must not automatically be treated as
+confirmed deterministic defects.
+
+A confirmed critical defect must continue to block approval.
+
+If the test results are inconclusive, report that explicitly.
+
+============================================================
+PART 26 — OPTIONAL REVIEW FILE
+============================================================
+
+After completing the review, ask:
+
+"Would you like to save this review to a Markdown file?"
+
+Options:
+
+1. Yes — Save the review.
+
+2. No — Console output only.
+
+If the user selects Yes:
+
+Use the following naming convention:
+
+PR_REVIEW_<TICKET-ID>.md
+
+If no ticket ID exists, use:
+
+PR_REVIEW_<BRANCH-NAME>.md
+
+Sanitize the filename.
+
+Prefer the repository's existing review output directory.
+
+Otherwise, use a dedicated review-reports directory
+or another clearly documented location.
+
+Avoid overwriting previous reviews without permission.
+
+The saved report must contain the complete final review.
+
+Ensure the report can be used during a later fix workflow.
+
+Do not automatically commit the report.
+
+============================================================
+PART 27 — REVIEW AND FIX WORKFLOW
+============================================================
+
+Document the recommended workflow.
+
+STEP 1:
+
+Developer makes changes.
+
+STEP 2:
+
+Developer commits changes.
+
+STEP 3:
+
+Developer executes:
+
+/pr-review
+
+STEP 4:
+
+Claude performs the review.
+
+STEP 5:
+
+Claude displays findings and recommendations.
+
+STEP 6:
+
+Developer optionally executes tests.
+
+STEP 7:
+
+Developer optionally saves the review.
+
+STEP 8:
+
+Developer fixes identified problems.
+
+STEP 9:
+
+Developer commits fixes.
+
+STEP 10:
+
+Developer executes:
+
+/pr-review
+
+again.
+
+STEP 11:
+
+Claude verifies the updated implementation.
+
+STEP 12:
+
+Developer pushes the branch when ready.
+
+IMPORTANT:
+
+The review skill must remain read-only by default.
+
+It must not automatically:
+
+- Modify application code
+- Modify tests
+- Commit changes
+- Push branches
+- Create remote PRs
+- Merge branches
+- Delete files
+
+The only permitted file modification during normal
+review is saving the report after explicit approval.
+
+If a separate /fix-review skill already exists,
+document compatibility with it.
+
+Do not create /fix-review unless explicitly requested.
+
+============================================================
+PART 28 — FALSE POSITIVE PREVENTION
+============================================================
+
+Accuracy is more important than the number of findings.
+
+Implement the following safeguards:
+
+1. Never report a defect based only on grep output.
+
+2. Inspect surrounding code.
+
+3. Verify that the issue is introduced by the PR.
+
+4. Respect repository-specific conventions.
+
+5. Do not flag valid Playwright patterns unnecessarily.
+
+6. Do not require assertions in helper functions
+   when assertions belong in the calling tests.
+
+7. Do not require cleanup for resources that are
+   intentionally persistent.
+
+8. Do not require random test data for legitimate
+   fixed-value scenarios.
+
+9. Do not report unavailable checks as passing.
+
+10. Do not claim complete coverage without evidence.
+
+11. Do not fabricate line numbers.
+
+12. Do not confuse existing issues with new defects.
+
+13. Do not treat test discovery as test execution.
+
+14. Do not treat successful compilation as proof
+    of functional correctness.
+
+15. Do not approve a PR solely because tests pass.
+
+16. Do not report speculative concerns as confirmed bugs.
+
+17. Explain uncertainty when evidence is incomplete.
+
+18. Prioritize findings with real engineering impact.
+
+============================================================
+PART 29 — PERFORMANCE AND EFFICIENCY
+============================================================
+
+The review must be thorough without being unnecessarily slow.
+
+Optimize the workflow by:
+
+- Classifying changed files first
+- Running only applicable checks
+- Reusing existing validation scripts
+- Avoiding repeated Git commands
+- Avoiding unnecessary full-repository scans
+- Inspecting directly related dependencies
+- Skipping irrelevant integration checks
+- Avoiding redundant test execution
+
+However:
+
+Do not sacrifice correctness for speed.
+
+Do not skip mandatory checks merely to finish faster.
+
+When the PR is large, prioritize critical and high-risk
+changes while clearly reporting any unreviewed areas.
+
+============================================================
+PART 30 — IMPLEMENTATION REQUIREMENTS
+============================================================
+
+Now implement the skill.
+
+Create:
+
+1. .claude/skills/pr-review/SKILL.md
+
+2. prompts/pr-review-execute.md
+
+3. Supporting verification scripts, only if necessary.
+
+The SKILL.md must contain:
+
+- Valid YAML frontmatter
+- Skill purpose
+- Primary reference
+- Execution rules
+- Base branch resolution
+- Review scope handling
+- Git context collection
+- Automated verification workflow
+- Deep analysis workflow
+- Review reporting
+- Decision matrix
+- Optional test execution
+- Optional report saving
+- Re-review workflow
+- Safety restrictions
+
+The detailed prompt must contain:
+
+- Complete review checklist
+- Severity classifications
+- Playwright standards
+- TypeScript standards
+- Security requirements
+- Architecture checks
+- Test data checks
+- Cleanup checks
+- Test coverage checks
+- Optional integration checks
+- Reporting template
+- Decision matrix
+- False-positive prevention rules
+
+Use clear Markdown headings.
+
+Keep instructions precise and actionable.
+
+Avoid unnecessary repetition.
+
+Avoid excessively large SKILL.md files.
+
+Do not create placeholder instructions.
+
+Every command must be valid for this repository.
+
+Every referenced script must exist.
+
+============================================================
+PART 31 — VALIDATION
+============================================================
+
+After creating the skill:
+
+A. VALIDATE FILE STRUCTURE
+
+Verify that all required files exist.
+
+B. VALIDATE FRONTMATTER
+
+Verify YAML syntax and required fields.
+
+C. VALIDATE REFERENCES
+
+Verify that SKILL.md references valid files.
+
+D. VALIDATE COMMANDS
+
+Verify that documented commands exist and are compatible
+with the repository.
+
+E. VALIDATE SAFETY
+
+Confirm that the skill cannot automatically modify
+application code or push changes.
+
+F. VALIDATE REVIEW LOGIC
+
+Test the review logic against available Git history.
+
+Do not require an actual remote PR.
+
+G. VALIDATE FAILURE HANDLING
+
+Verify expected behavior for:
+
+- No commits
+- Missing base branch
+- Broken Git references
+- Missing dependencies
+- Unavailable credentials
+- No changed test files
+- Configuration-only changes
+- Test execution failures
+- Unavailable external integrations
+
+H. VALIDATE DECISION LOGIC
+
+Verify that:
+
+- Critical defects prevent approval.
+- Important blocking defects request changes.
+- Minor suggestions do not automatically block approval.
+- Mandatory unverified checks prevent unconditional approval.
+- Passing tests do not override code review findings.
+
+I. VALIDATE INTERACTIVE WORKFLOW
+
+Confirm that the skill supports:
+
+- Review execution
+- Optional test execution
+- Updated review decision
+- Optional report saving
+
+If interactive prompts cannot be tested automatically,
+inspect and verify the instructions.
+
+============================================================
+PART 32 — FINAL DELIVERABLE
+============================================================
+
+After implementation, display:
+
+1. Summary of the framework architecture discovered.
+
+2. Files created.
+
+3. Review checks implemented.
+
+4. Repository-specific conventions incorporated.
+
+5. Automated verification commands supported.
+
+6. External integrations detected.
+
+7. Skill validation results.
+
+8. Any limitations.
+
+9. Exact instructions for invoking the skill.
+
+10. Example expected review output.
+
+Do not claim validation succeeded unless it actually ran.
+
+Do not claim the skill works unless its implementation
+has been verified to the extent possible.
+
+============================================================
+FINAL INSTRUCTION
+============================================================
+
+Your responsibility is to BUILD the complete skill,
+not merely describe how it could be built.
+
+Begin by thoroughly inspecting this repository.
+
+Then create the actual files.
+
+Use the existing framework's architecture and conventions.
+
+Produce a production-quality local PR reviewer that
+delivers accurate, actionable, evidence-based feedback.
+
+The final result must behave like a highly experienced
+Senior SDET reviewing a real Playwright automation PR.
+
+Prioritize:
+
+CORRECTNESS
+RELIABILITY
+SECURITY
+TEST QUALITY
+MAINTAINABILITY
+ACCURACY
+LOW FALSE-POSITIVE RATE
+
+Start the repository investigation now.
